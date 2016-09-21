@@ -74,7 +74,7 @@ reinstall = function(options, pkg) {
       cmd = 'npm install';
       isWin = /^win/.test(process.platform);
       if (isWin) {
-        cmd = "cmd.exe " + cmd;
+        cmd = "npm.cmd install";
       }
       if (verbose) {
         console.log("executing `" + cmd + "` in `" + tmp + "`");
