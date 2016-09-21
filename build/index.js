@@ -13,11 +13,7 @@ cwd = process.cwd, chdir = process.chdir;
 
 exec = function(cmd, options) {
   return new Promise(function(resolve, reject) {
-    var args, child, isWin, ref;
-    isWin = /^win/.test(process.platform);
-    if (isWin) {
-      cmd = "cmd.exe " + cmd;
-    }
+    var args, child, ref;
     ref = cmd.split(' '), cmd = ref[0], args = 2 <= ref.length ? slice.call(ref, 1) : [];
     child = cp.spawn(cmd, args, options);
     return child.on('close', function(code) {
@@ -74,8 +70,12 @@ reinstall = function(options, pkg) {
         stdio: stdio
       });
     }).then(function() {
-      var cmd;
+      var cmd, isWin;
       cmd = 'npm install';
+      isWin = /^win/.test(process.platform);
+      if (isWin) {
+        cmd = "cmd.exe " + cmd;
+      }
       if (verbose) {
         console.log("executing `" + cmd + "` in `" + tmp + "`");
       }
