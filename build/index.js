@@ -71,10 +71,11 @@ reinstall = function(options, pkg) {
       });
     }).then(function() {
       var cmd, isWin;
-      cmd = 'npm install';
       isWin = /^win/.test(process.platform);
       if (isWin) {
         cmd = "npm.cmd install";
+      } else {
+        cmd = "npm install";
       }
       if (verbose) {
         console.log("executing `" + cmd + "` in `" + tmp + "`");
@@ -103,10 +104,11 @@ reinstall = function(options, pkg) {
       };
     }).then(function(metadata) {
       var cmd, isWin;
-      cmd = "npm install " + tmp;
       isWin = /^win/.test(process.platform);
       if (isWin) {
-        cmd = "npm.cmd install";
+        cmd = "npm.cmd install " + tmp;
+      } else {
+        cmd = "npm install " + tmp;
       }
       if (verbose) {
         console.log("executing " + cmd);
