@@ -102,8 +102,12 @@ reinstall = function(options, pkg) {
         sha: sha
       };
     }).then(function(metadata) {
-      var cmd;
+      var cmd, isWin;
       cmd = "npm install " + tmp;
+      isWin = /^win/.test(process.platform);
+      if (isWin) {
+        cmd = "npm.cmd install";
+      }
       if (verbose) {
         console.log("executing " + cmd);
       }
