@@ -10,6 +10,8 @@ fs          = require 'fs'
 
 # Helpful promises
 exec = (cmd, options) -> new Promise (resolve, reject) ->
+  isWin = /^win/.test process.platform
+  if isWin then cmd = "cmd.exe " + cmd
   [ cmd, args... ] = cmd.split ' '
   child = cp.spawn cmd, args, options
   child.on 'close', (code) ->
